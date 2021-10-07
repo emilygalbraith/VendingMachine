@@ -13,11 +13,11 @@ public class InventoryHandler {
     public List<VendingMachineItem> getInventory() { return inventory; }
 
     public void stockInventory() {
-        Scanner input = new Scanner(System.in);
         File inventoryFile = new File("vendingmachine.csv");
         try (Scanner openFile = new Scanner(inventoryFile)) {
             while (openFile.hasNext()) {
-                String[] itemInfo = input.nextLine().split("//|");
+                String lineOfInput = openFile.nextLine();
+                String[] itemInfo = lineOfInput.split("\\|");
                 String location = itemInfo[0];
                 String name = itemInfo[1];
                 double price = Double.parseDouble(itemInfo[2]);
@@ -28,10 +28,13 @@ public class InventoryHandler {
                     inventory.add(newChip);
                 } else if(category.equals("Candy")) {
                     Candy newCandy = new Candy(name, location, price, category, quantity);
+                    inventory.add(newCandy);
                 } else if(category.equals("Drink")) {
                     Drink newDrink = new Drink(name, location, price, category, quantity);
+                    inventory.add(newDrink);
                 } else if(category.equals("Gum")) {
                     Gum newGum = new Gum(name, location, price, category, quantity);
+                    inventory.add(newGum);
                 } else {
                     System.out.println("Invalid Category");
                 }
