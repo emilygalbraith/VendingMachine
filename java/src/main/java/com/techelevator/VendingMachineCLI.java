@@ -23,30 +23,39 @@ public class VendingMachineCLI {
 	}
 
 	public void run() {
+		Scanner in = new Scanner(System.in);
 		InventoryHandler newInventory = new InventoryHandler();
+		newInventory.stockInventory();
+		MoneyHandler moneyHandler = new MoneyHandler();
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				newInventory.stockInventory();
 				for(VendingMachineItem item : newInventory.getInventory()) {
 					System.out.println(item.getLocation() + "|" + item.getName() + "|" + item.getPrice() + "|" + item.getCategory());
 				}
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-				MoneyHandler moneyHandler = new MoneyHandler();
 				if(purchaseChoice.equals(FEED_MONEY)){
-					Scanner input = new Scanner(System.in);
 					System.out.println("Please enter money in whole dollar amounts of: $1, $2, $5, or $10.");
-					String money = input.nextLine();
+					String money = in.nextLine();
 					Double moneyAmount = Double.parseDouble(money);
 					System.out.println(moneyHandler.customerAmount(moneyAmount));
 				} if(purchaseChoice.equals(SELECT_PRODUCT)){
-					
 					for(VendingMachineItem item : newInventory.getInventory()) {
 						System.out.println(item.getLocation() + "|" + item.getName() + "|" + item.getPrice() + "|" + item.getCategory());
-
 					}
+					System.out.println("Please enter the location code: ");
+					String locationCode = in.nextLine();
+					VendingMachineItem customerChoice = new VendingMachineItem();
+					for(VendingMachineItem item: newInventory.getInventory()){
+						if(item.getLocation().equals(locationCode)){
+							customerChoice = item;
+						}
+					}
+					System.out.println(newInventory.selectProduct(locationCode));
+					System.out.println(moneyHandler.deductPriceOfSelection(customerChoice.getPrice()));
+
 
 				} if(purchaseChoice.equals(FINISH_TRANSACTION)){
 					//to do

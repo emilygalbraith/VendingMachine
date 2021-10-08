@@ -11,4 +11,11 @@ public class MoneyHandler {
         String currentMoney = String.format("Current Money Provided: $%.2f",balance);
         return currentMoney;
     }
+
+    //deduct cost of item from balance
+    public String deductPriceOfSelection(double price) {
+        balance -= price;
+        String stringBalance = String.format("Money Remaining: %.2f", balance);
+        return stringBalance;
+    }
 }

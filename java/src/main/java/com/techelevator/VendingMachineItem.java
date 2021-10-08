@@ -7,6 +7,8 @@ public class VendingMachineItem {
     private String category;
     private int quantity;
 
+    public VendingMachineItem() {}
+
     public VendingMachineItem(String name, String location, double price, String category, int quantity) {
         this.name = name;
         this.price = price;
