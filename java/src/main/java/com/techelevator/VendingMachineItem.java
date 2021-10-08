@@ -19,8 +19,12 @@ public class VendingMachineItem {
     public String getLocation() { return location; }
     public double getPrice() { return price; }
     public String getCategory() { return category; }
+    public int getQuantity() { return quantity; }
+    public String getMessage() { return "";}
 
     public void setName(String name) { this.name = name; }
     public void setPrice(double price) { this.price = price;}
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+
 
 }

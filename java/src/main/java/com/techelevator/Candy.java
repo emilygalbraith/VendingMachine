@@ -7,6 +7,7 @@ public class Candy extends VendingMachineItem {
         super(name, location, price, category, quantity);
     }
 
+    @Override
     public String getMessage() {
         return message;
     }

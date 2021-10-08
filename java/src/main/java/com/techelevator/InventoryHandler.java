@@ -43,4 +43,18 @@ public class InventoryHandler {
             System.out.println("File not found.");
         }
     }
+
+    public String selectProduct(String location) {
+        for(VendingMachineItem item : getInventory()){
+            if(location.equals(item.getLocation())){
+                if(item.getQuantity() == 0){
+                    return "Sold Out";
+                } else {
+                    item.setQuantity(item.getQuantity() - 1);
+                    String dispensed = String.format("%s: %.2f. %s", item.getName(), item.getPrice(), item.getMessage());
+                    return dispensed;
+                }
+            }
+        } return "Not a valid item";
+    }
 }
