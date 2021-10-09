@@ -2,6 +2,7 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
+import java.io.File;
 import java.sql.Statement;
 import java.util.Scanner;
 
@@ -15,7 +16,7 @@ public class VendingMachineCLI {
 	private static final String SELECT_PRODUCT = "Select Product";
 	private static final String FINISH_TRANSACTION = "Finish Transaction";
 	private static final String[] PURCHASE_MENU_OPTIONS = { FEED_MONEY, SELECT_PRODUCT, FINISH_TRANSACTION };
-
+	//private final String DEST_FILE_PATH = "src/test/resources/Log.txt";
 	private Menu menu;
 
 	public VendingMachineCLI(Menu menu) {
@@ -35,31 +36,49 @@ public class VendingMachineCLI {
 					System.out.println(item.getLocation() + "|" + item.getName() + "|" + item.getPrice() + "|" + item.getCategory());
 				}
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-				if(purchaseChoice.equals(FEED_MONEY)){
-					System.out.println("Please enter money in whole dollar amounts of: $1, $2, $5, or $10.");
-					String money = in.nextLine();
-					Double moneyAmount = Double.parseDouble(money);
-					System.out.println(moneyHandler.customerAmount(moneyAmount));
-				} if(purchaseChoice.equals(SELECT_PRODUCT)){
-					for(VendingMachineItem item : newInventory.getInventory()) {
-						System.out.println(item.getLocation() + "|" + item.getName() + "|" + item.getPrice() + "|" + item.getCategory());
+
+				boolean isPurchase= true;
+				while (isPurchase) {
+					String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+					if (purchaseChoice.equals(FEED_MONEY)) {
+						System.out.println("Please enter money in whole dollar amounts of: $1, $2, $5, or $10.");
+						String money = in.nextLine();
+						Double moneyAmount = Double.parseDouble(money);
+						System.out.println(moneyHandler.customerAmount(moneyAmount));
 					}
-					System.out.println("Please enter the location code: ");
-					String locationCode = in.nextLine();
-					VendingMachineItem customerChoice = new VendingMachineItem();
-					for(VendingMachineItem item: newInventory.getInventory()){
-						if(item.getLocation().equals(locationCode)){
-							customerChoice = item;
+					while (choice.equals("2")) {
+						continue;
+
+					}
+					if (purchaseChoice.equals(SELECT_PRODUCT)) {
+						for (VendingMachineItem item : newInventory.getInventory()) {
+							System.out.println(item.getLocation() + "|" + item.getName() + "|" + item.getPrice() + "|" + item.getCategory());
 						}
+						System.out.println("Please enter the location code: ");
+						String locationCode = in.nextLine();
+						VendingMachineItem customerChoice = new VendingMachineItem();
+						for (VendingMachineItem item : newInventory.getInventory()) {
+							if (item.getLocation().equals(locationCode)) {
+								customerChoice = item;
+							}
+						}
+						System.out.println(newInventory.selectProduct(locationCode));
+						System.out.println(moneyHandler.deductPriceOfSelection(customerChoice.getPrice()));
+
+
 					}
-					System.out.println(newInventory.selectProduct(locationCode));
-					System.out.println(moneyHandler.deductPriceOfSelection(customerChoice.getPrice()));
+					if (purchaseChoice.equals(FINISH_TRANSACTION)) {
+						isPurchase =false;
+						System.out.println(moneyHandler.makeChange());
 
 
-				} if(purchaseChoice.equals(FINISH_TRANSACTION)){
-					//to do
+					}
 				}
+
+			}else if (choice.equals(MAIN_MENU_OPTION_EXIT)){
+				System.exit(0);
+
+
 
 			}
 		}

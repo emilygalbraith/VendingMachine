@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class InventoryHandler {
     private List<VendingMachineItem> inventory = new ArrayList<>();
 
+
     public List<VendingMachineItem> getInventory() { return inventory; }
 
     public void stockInventory() {
@@ -55,6 +56,7 @@ public class InventoryHandler {
                     return dispensed;
                 }
             }
-        } return "Not a valid item";
+        } return "Please select the valid product";
     }
+
 }
