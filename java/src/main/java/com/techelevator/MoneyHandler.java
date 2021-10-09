@@ -10,6 +10,8 @@ public class MoneyHandler {
     private final double DIME=.10;
     private final double NICKEL=.05;
 
+    public double getBalance() { return balance; }
+
 
     // feed money to balance
     public String customerAmount(double money) {

@@ -16,7 +16,6 @@ public class VendingMachineCLI {
 	private static final String SELECT_PRODUCT = "Select Product";
 	private static final String FINISH_TRANSACTION = "Finish Transaction";
 	private static final String[] PURCHASE_MENU_OPTIONS = { FEED_MONEY, SELECT_PRODUCT, FINISH_TRANSACTION };
-	//private final String DEST_FILE_PATH = "src/test/resources/Log.txt";
 	private Menu menu;
 
 	public VendingMachineCLI(Menu menu) {
@@ -28,6 +27,7 @@ public class VendingMachineCLI {
 		InventoryHandler newInventory = new InventoryHandler();
 		newInventory.stockInventory();
 		MoneyHandler moneyHandler = new MoneyHandler();
+		Logger logger = new Logger();
 		while (true) {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
@@ -45,6 +45,7 @@ public class VendingMachineCLI {
 						String money = in.nextLine();
 						Double moneyAmount = Double.parseDouble(money);
 						System.out.println(moneyHandler.customerAmount(moneyAmount));
+						logger.logFeed(moneyAmount, moneyHandler.getBalance());
 					}
 					while (choice.equals("2")) {
 						continue;
@@ -64,14 +65,13 @@ public class VendingMachineCLI {
 						}
 						System.out.println(newInventory.selectProduct(locationCode));
 						System.out.println(moneyHandler.deductPriceOfSelection(customerChoice.getPrice()));
-
+						logger.logSelection(customerChoice.getPrice(), moneyHandler.getBalance());
 
 					}
 					if (purchaseChoice.equals(FINISH_TRANSACTION)) {
 						isPurchase =false;
 						System.out.println(moneyHandler.makeChange());
-
-
+						logger.logFinish(moneyHandler.getBalance());
 					}
 				}
 
