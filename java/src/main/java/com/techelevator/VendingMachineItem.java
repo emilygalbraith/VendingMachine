@@ -28,5 +28,13 @@ public class VendingMachineItem {
     public void setPrice(double price) { this.price = price;}
     public void setQuantity(int quantity) { this.quantity = quantity; }
 
+    public String isSoldOut(){
+        if (quantity == 0){
+            return "Sold out";
+        } else {
+            return "";
+        }
+    }
+
 
 }

@@ -33,7 +33,7 @@ public class VendingMachineCLI {
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				for(VendingMachineItem item : newInventory.getInventory()) {
-					System.out.println(item.getLocation() + "|" + item.getName() + "|" + item.getPrice() + "|" + item.getCategory());
+					System.out.println(item.getLocation() + "|" + item.getName() + "|" + item.getPrice() + "|" + item.getCategory() + "|" + item.isSoldOut());
 				}
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 
@@ -65,7 +65,7 @@ public class VendingMachineCLI {
 						}
 						System.out.println(newInventory.selectProduct(locationCode));
 						System.out.println(moneyHandler.deductPriceOfSelection(customerChoice.getPrice()));
-						logger.logSelection(customerChoice.getPrice(), moneyHandler.getBalance());
+						logger.logSelection(customerChoice.getPrice(), moneyHandler.getBalance(), customerChoice);
 
 					}
 					if (purchaseChoice.equals(FINISH_TRANSACTION)) {
