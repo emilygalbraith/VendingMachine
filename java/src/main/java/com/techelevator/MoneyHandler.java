@@ -11,6 +11,7 @@ public class MoneyHandler {
     private final double NICKEL=.05;
 
     public double getBalance() { return balance; }
+    public void setBalance(double balance){this.balance=balance;}
 
 
     // feed money to balance
@@ -37,7 +38,6 @@ public class MoneyHandler {
             }else if(balance>=DIME){
                 dimeCount++;
                 balance-=DIME;
-
             }else if(balance>=NICKEL){
                 nickelCount++;
                 balance-=NICKEL;
@@ -46,7 +46,7 @@ public class MoneyHandler {
 
 
         }
-        String changeAmount="Your change is : \nQuarter :"+quarterCount+"\nDime :"+ dimeCount+ "\nNickel"+ nickelCount;
+        String changeAmount="Your change is : \nQuarter :"+quarterCount+"\nDime :"+ dimeCount+ "\nNickel :"+ nickelCount;
         return changeAmount;
 
     }
